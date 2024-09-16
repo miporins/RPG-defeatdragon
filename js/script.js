@@ -17,7 +17,7 @@ const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 const weapons = [
-  { name: 'graveto', power: 5 },
+  { name: ' graveto', power: 5 },
   { name: ' adaga', power: 30 },
   { name: ' martelo', power: 50 },
   { name: ' espada', power: 100 }
@@ -29,7 +29,7 @@ const monsters = [
     health: 15
   },
   {
-    name: "besta com garras",
+    name: "lobisomem",
     level: 8,
     health: 60
   },
@@ -42,7 +42,7 @@ const monsters = [
 const locations = [
   {
     name: "praça da vila",
-    "button text": ["Loja", "Ir para uma caverna", "Lutar contra o dragão"],
+    "button text": ["Loja", "Ir para caverna", "Lutar contra o dragão"],
     "button functions": [goStore, goCave, fightDragon],
     text: "Você está na praça da vila. <br><br>Você avista uma placa que diz \"Loja\", uma caverna no pé de uma montanha e a trilha que leva ao dragão."
   },
@@ -54,7 +54,7 @@ const locations = [
   },
   {
     name: "caverna",
-    "button text": ["Lutar contra slime", "Lutar contra besta com garras", "Ir para a praça da vila"],
+    "button text": ["Lutar contra slime", "Lutar contra lobisomem", "Ir para a praça da vila"],
     "button functions": [fightSlime, fightBeast, goTown],
     text: "Você entra na caverna e avista alguns monstros."
   },
@@ -66,8 +66,8 @@ const locations = [
   },
   {
     name: "derrotar monstro",
-    "button text": ["Ir para a praça da vila", "Ir para a praça da vila", "Ir para a praça da vila"],
-    "button functions": [goTown, goTown, goTown],
+    "button text": ["Ir para a loja", "Voltar na praça da vila", "Lutar contra um monstro igual"],
+    "button functions": [goStore, goTown, goFight],
     text: 'O monstro grita "Arg!" quando é derrotado. Você ganhou pontos de experiência e também encontrou ouro. <br><br>Agora você tem: ' + gold + ' ouros, ' + xp + ' pontos de experiência, ' + health + ' pontos de vida, e ' + weapons[currentWeapon].name + ' como sua arma.<br><br>Seu inventário agora contém: ' + inventory.join(', ') + '.'
   },
   {
@@ -90,7 +90,7 @@ const locations = [
   }
 ];
 
-// initialize buttons
+// botões
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
