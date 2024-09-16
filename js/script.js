@@ -18,9 +18,9 @@ const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 const weapons = [
   { name: 'graveto', power: 5 },
-  { name: 'adaga', power: 30 },
-  { name: 'martelo', power: 50 },
-  { name: 'espada', power: 100 }
+  { name: ' adaga', power: 30 },
+  { name: ' martelo', power: 50 },
+  { name: ' espada', power: 100 }
 ];
 const monsters = [
   {
@@ -44,7 +44,7 @@ const locations = [
     name: "praça da vila",
     "button text": ["Loja", "Ir para uma caverna", "Lutar contra o dragão"],
     "button functions": [goStore, goCave, fightDragon],
-    text: "Você está na praça da vila. Você avista uma placa que diz \"Loja\", uma caverna no pé de uma montanha e a trilha que leva ao dragão."
+    text: "Você está na praça da vila. <br><br>Você avista uma placa que diz \"Loja\", uma caverna no pé de uma montanha e a trilha que leva ao dragão."
   },
   {
     name: "loja",
@@ -68,7 +68,7 @@ const locations = [
     name: "derrotar monstro",
     "button text": ["Ir para a praça da vila", "Ir para a praça da vila", "Ir para a praça da vila"],
     "button functions": [goTown, goTown, goTown],
-    text: 'O monstro grita "Arg!" quando é derrotado. Você ganhou pontos de experiência e também encontrou ouro.'
+    text: 'O monstro grita "Arg!" quando é derrotado. Você ganhou pontos de experiência e também encontrou ouro. <br><br>Agora você tem: ' + gold + ' ouros, ' + xp + ' pontos de experiência, ' + health + ' pontos de vida, e ' + weapons[currentWeapon].name + ' como sua arma.<br><br>Seu inventário agora contém: ' + inventory.join(', ') + '.'
   },
   {
     name: "perdeu",
@@ -86,7 +86,7 @@ const locations = [
     name: "easter egg",
     "button text": ["2", "8", "Ir para a praça da vila?"],
     "button functions": [pickTwo, pickEight, goTown],
-    text: "Você encontrou um jogo secreto. Escolha um número. Dez números vão ser escolhidos aleatoriamente entre 0 e 10. Se o número que você escolher corresponder ao um dos números escolhidos, você ganha!"
+    text: "Você encontrou um jogo secreto. Escolha um número. <br><br>Dez números vão ser escolhidos aleatoriamente entre 0 e 10. Se o número que você escolher corresponder ao um dos números escolhidos, você ganha!"
   }
 ];
 
@@ -138,7 +138,7 @@ function buyWeapon() {
       let newWeapon = weapons[currentWeapon].name;
       text.innerText = "Agora você tem: " + newWeapon + ".";
       inventory.push(newWeapon);
-      text.innerText += " Em sua bolsa, você leva: " + inventory;
+      text.innerText += "\n\nEm sua bolsa, você leva: " + inventory;
     } else {
       text.innerText = "Você não tem ouro suficiente para comprar uma arma.";
     }
@@ -185,7 +185,7 @@ function goFight() {
 }
 
 function attack() {
-  text.innerText = "O monstro " + monsters[fighting].name + " ataca.";
+  text.innerText = "O " + monsters[fighting].name + " ataca.";
   text.innerText += " Você ataca com " + weapons[currentWeapon].name + ".";
   health -= getMonsterAttackValue(monsters[fighting].level);
   if (isMonsterHit()) {
@@ -193,8 +193,10 @@ function attack() {
   } else {
     text.innerText += " Você errou.";
   }
+
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
+
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
@@ -204,9 +206,11 @@ function attack() {
       defeatMonster();
     }
   }
+
   if (Math.random() <= .1 && inventory.length !== 1) {
-    text.innerText += " Sua arma " + inventory.pop() + " quebrou.";
+    text.innerText += "\n\nSua arma " + inventory.pop() + " quebrou.";
     currentWeapon--;
+    text.innerText += " Sua arma agora será: " + weapons[currentWeapon].name;
   }
 }
 
@@ -229,6 +233,7 @@ function defeatMonster() {
   xp += monsters[fighting].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
+  locations[4].text = 'O monstro grita "Arg!" quando é derrotado. Você ganhou pontos de experiência e também encontrou ouro. <br><br>Em sua bolsa: ' + gold + ' ouros e ' + weapons[currentWeapon].name + '.';
   update(locations[4]);
 }
 
@@ -245,7 +250,7 @@ function restart() {
   health = 100;
   gold = 50;
   currentWeapon = 0;
-  inventory = ["Graveto"];
+  inventory = ["graveto"];
   goldText.innerText = gold;
   healthText.innerText = health;
   xpText.innerText = xp;
@@ -269,18 +274,21 @@ function pick(guess) {
   while (numbers.length < 10) {
     numbers.push(Math.floor(Math.random() * 11));
   }
-  text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+
+  text.innerText = "Você escolheu " + guess + ". Aqui estão os números aleatórios:\n";
   for (let i = 0; i < 10; i++) {
     text.innerText += numbers[i] + "\n";
   }
+
   if (numbers.includes(guess)) {
-    text.innerText += "Right! You win 20 gold!";
+    text.innerText += "Acertou! Você ganhou 20 ouros!";
     gold += 20;
     goldText.innerText = gold;
   } else {
-    text.innerText += "Wrong! You lose 10 health!";
+    text.innerText += "Errou! Você perdeu 20 pontos de vida!";
     health -= 10;
     healthText.innerText = health;
+
     if (health <= 0) {
       lose();
     }
