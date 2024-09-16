@@ -60,4 +60,5 @@ body {
     background-image: linear-gradient(#fecc4c, #ffac33);
     border: 3px solid #feac32;
     border-radius: .8rem;
+    font-size: 16px;
   }
