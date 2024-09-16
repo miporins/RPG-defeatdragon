@@ -30,8 +30,6 @@ body {
   
   #controls,
   #stats {
-    border: 1px solid #0a0a23;
-    border-radius: .5rem;
     padding: 5px;
     margin-bottom: .5rem;
     color: #0a0a23;
@@ -40,7 +38,6 @@ body {
   
   #monsterStats {
     display: none;
-    border: 1px solid #0a0a23;
     border-radius: .5rem;
     padding: 5px;
     margin-bottom: .5rem;
